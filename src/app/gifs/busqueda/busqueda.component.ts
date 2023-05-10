@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { GifsService } from '../services/gifs.service';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-busqueda',
@@ -6,7 +8,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
   styleUrls: ['./busqueda.component.css'],
 })
 export class BusquedaComponent {
-  constructor() {}
+  constructor(private gifsService: GifsService) {}
 
   // buscando el elemento
   // Non-null assertion operator (!)
@@ -17,7 +19,8 @@ export class BusquedaComponent {
   buscar() {
     const value = this.txtBuscar.nativeElement.value;
 
-    console.log(value);
+    this.gifsService.buscarGifs(value);
+    // console.log(value);
     // para limpiar
     this.txtBuscar.nativeElement.value = '';
   }
