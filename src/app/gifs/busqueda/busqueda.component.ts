@@ -19,6 +19,11 @@ export class BusquedaComponent {
   buscar() {
     const value = this.txtBuscar.nativeElement.value;
 
+    // valor vacio o espacios vacios opoerdor "trim"
+    if (value.trim().length === 0) {
+      return;
+    }
+
     this.gifsService.buscarGifs(value);
     // console.log(value);
     // para limpiar
