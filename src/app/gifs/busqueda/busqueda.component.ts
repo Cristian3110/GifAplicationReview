@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { GifsService } from '../services/gifs.service';
-import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-busqueda',
