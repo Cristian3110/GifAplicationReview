@@ -16,7 +16,15 @@ export class GifsService {
     return [...this._historial];
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    // manteniendo el historial en el localstorage
+    this._historial = JSON.parse(localStorage.getItem('historial')!) || [];
+
+    //manteniendo los resultados
+    if (localStorage.getItem('resultado')) {
+      this.resultados = JSON.parse(localStorage.getItem('resultado')!);
+    }
+  }
 
   buscarGifs(query: string) {
     //convirtiendo en lowercase
@@ -28,6 +36,9 @@ export class GifsService {
       this._historial.unshift(query);
       //cortando el arreglo en el historial
       this._historial = this._historial.splice(0, 10);
+
+      //add information to localStorage
+      localStorage.setItem('historial', JSON.stringify(this._historial));
     }
 
     this.http
@@ -37,6 +48,8 @@ export class GifsService {
       .subscribe((resp) => {
         console.log(resp.data);
         this.resultados = resp.data;
+        //manteniendo los result
+        localStorage.setItem('resultado', JSON.stringify(this.resultados));
       });
 
     console.log(this._historial);
